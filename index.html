@@ -608,14 +608,15 @@
                     </button>
                 </form>
                 
-                <div id="success-contact" class="hidden text-center p-10 border border-[#b89564] bg-white/5">
-                    <h3 class="text-[#b89564] font-serif text-2xl mb-4">Envoyé avec succès !</h3>
-                    <p class="text-white text-sm mb-6">Merci, votre demande a bien été transmise.<br>Je reviens vers vous dans les meilleurs délais.</p>
-                    
-                    <button type="button" onclick="resetFormContact()" class="text-[#b89564] text-[10px] uppercase tracking-widest border border-[#b89564] px-6 py-3 hover:bg-[#b89564] hover:text-white transition-all">
-                        Envoyer une autre demande
-                    </button>
-                </div>
+              <div id="success-message" class="hidden absolute inset-0 bg-[#0a1d2e] flex flex-col items-center justify-center text-center p-8 z-20">
+    <svg class="w-16 h-16 text-[#b89564] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <h4 class="text-xl font-serif mb-2 text-[#b89564]">Simulation envoyée !</h4>
+    <p class="text-sm text-white/70 mb-6">Merci <span id="client-name"></span>. Je prépare votre étude.</p>
+    
+    <a href="url: 'https://calendly.com/francois-goretta01/30min'" target="_blank" class="bg-[#b89564] text-white px-6 py-3 rounded-lg font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#0a1d2e] transition-all">
+        Prendre rendez-vous maintenant
+    </a>
+</div>
         
     </section>
     
