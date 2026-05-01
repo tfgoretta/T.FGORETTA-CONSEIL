@@ -154,66 +154,56 @@
                 budget: document.getElementById('hidden-budget').value,
                 revenus: document.getElementById('hidden-revenus').value
             })
-            .then(function() {
-        // 1. On affiche le succès
-        const clientNameSpan = document.getElementById('client-name');
+.then(function() {
+        // 1. Récupération des éléments
         const successMsg = document.getElementById('success-message');
-        const form = document.getElementById('simulationForm');
+        const clientNameSpan = document.getElementById('client-name');
+        const formulaire = document.getElementById('simulationForm');
+        const boutonSoumission = formulaire.querySelector('button[type="submit"]');
 
-        if(clientNameSpan) clientNameSpan.innerText = nomClient;
-        if(successMsg) successMsg.classList.remove('hidden');
+        // 2. Affichage du message de succès (le bloc bleu)
+        if (clientNameSpan) clientNameSpan.innerText = nomClient;
+        if (successMsg) successMsg.classList.remove('hidden');
 
-        // 2. Le minuteur de 5 secondes
+        // 3. MINUTEUR DE 5 SECONDES
         setTimeout(function() {
-            // On cache le message
-            if(successMsg) successMsg.classList.add('hidden');
+            // A. On cache le message bleu
+            if (successMsg) successMsg.classList.add('hidden');
 
-            // On remet le formulaire à zéro
-            if(form) form.reset();
+            // B. On vide les champs du formulaire (Nom, Email, Tel)
+            if (formulaire) formulaire.reset();
 
-            // On remet les valeurs par défaut aux curseurs
-            // (Vérifie que tes variables s'appellent bien inRev et inCha)
-            if(typeof inRev !== 'undefined') inRev.value = 3000;
-            if(typeof inCha !== 'undefined') inCha.value = 0;
+            // C. On remet les curseurs aux valeurs de base
+            const inputRev = document.getElementById('input-revenus');
+            const inputCha = document.getElementById('input-charges');
+            if (inputRev) inputRev.value = 3000;
+            if (inputCha) inputCha.value = 0;
 
-            // On relance le calcul pour mettre à jour les chiffres dorés
-            if(typeof calculer === 'function') calculer();
+            // D. On relance le calcul pour remettre les chiffres dorés à jour
+            if (typeof calculer === 'function') {
+                calculer();
+            }
 
-            // On réactive le bouton
-            if(typeof btn !== 'undefined') {
-                btn.innerText = "RECEVOIR MON ÉTUDE DÉTAILLÉE";
-                btn.disabled = false;
+            // E. ON DÉBLOQUE LE BOUTON
+            if (boutonSoumission) {
+                boutonSoumission.innerText = "RECEVOIR MON ÉTUDE DÉTAILLÉE";
+                boutonSoumission.disabled = false;
             }
         }, 5000);
 
     }, function(error) {
-     
-        // 3. MINUTEUR : On attend 5 secondes puis on remet tout à zéro
-        setTimeout(() => {
-            // Cacher le bloc de succès
-            successMsg.classList.add('hidden');
-
-            // Réinitialiser le formulaire
-            document.getElementById('simulationForm').reset();
-
-            // Remettre les curseurs à leur position de base (ex: 3000€ et 0€)
-            inRev.value = 3000;
-            inCha.value = 0;
-            
-            // Relancer le calcul pour que les chiffres dorés reviennent à la base
-            calculer();
-
-            // Remettre le bouton à son état initial
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }, 5000); // 5000 = 5 secondes
-            }, function(error) {
-                alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer ou me contacter par téléphone.");
-                btn.innerText = originalText;
-                btn.disabled = false;
-                console.log("Erreur EmailJS :", error);
-            });
-        });
+        // En cas d'erreur d'envoi
+        const formulaire = document.getElementById('simulationForm');
+        const boutonSoumission = formulaire.querySelector('button[type="submit"]');
+        
+        alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+        
+        if (boutonSoumission) {
+            boutonSoumission.innerText = "RÉESSAYER";
+            boutonSoumission.disabled = false;
+        }
+        console.log("Erreur EmailJS :", error);
+    });
     </script>
 </body>
 </html>
