@@ -724,23 +724,28 @@ if (contactForm) {
     });
 }
         // 5. FONCTION RESET (Pour le bouton "Envoyer une autre demande")
-        function resetFormContact() {
-            // Réafficher le formulaire et cacher le message de succès
-            contactForm.classList.remove('hidden');
-            successMsg.classList.add('hidden');
-            
-            // Vider tous les champs
-            contactForm.reset();
-            
-            // Remettre le bouton d'envoi à l'état initial
-            btn.innerText = "ENVOYER MA DEMANDE D'ÉTUDE";
-            btn.disabled = false;
-            
-            // Recacher les sections dynamiques
-            blocRevenus.classList.add('hidden');
-            section.classList.add('hidden');
-        contactForm.scrollIntoView({ behavior: 'smooth' });
+function resetFormContact() {
+    // 1. On récupère les éléments
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('success-contact');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // 2. On réaffiche le formulaire et on cache le message
+    if(form) form.classList.remove('hidden');
+    if(msg) msg.classList.add('hidden');
+    
+    // 3. On vide les champs
+    if(form) form.reset();
+    
+    // 4. On remet le bouton d'envoi à l'endroit
+    if(submitBtn) {
+        submitBtn.innerText = "ENVOYER MA DEMANDE D'ÉTUDE";
+        submitBtn.disabled = false;
     }
+
+    // 5. On remonte doucement vers le formulaire
+    window.scrollTo({ top: document.getElementById('contact').offsetTop - 100, behavior: 'smooth' });
+}
         function selectionnerProjet(valeur) {
     const select = document.getElementById('choixProjet');
     if (select) {
