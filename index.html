@@ -671,33 +671,47 @@ const btn = document.getElementById('submitBtn'); // AJOUTE CETTE LIGNE
     toggle.addEventListener('change', gererAffichageDynamique);
     
         // 4. Logique d'envoi Formspree
-        if (contactForm) {
-            contactForm.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                btn.innerText = "ENVOI EN COURS...";
-                btn.disabled = true;
-    
-                try {
-                    const response = await fetch(e.target.action, {
-                        method: 'POST',
-                        body: new FormData(e.target),
-                        headers: { 'Accept': 'application/json' }
-                    });
-    
-                    if (response.ok) {
-                        contactForm.classList.add('hidden');
-                        successMsg.classList.remove('hidden');
-                    } else {
-                        throw new Error();
-                    }
-                } catch (error) {
-                    alert("Erreur lors de l'envoi. Vérifiez votre connexion.");
-                    btn.innerText = "RÉESSAYER";
-                    btn.disabled = false;
-                }
-            });
+     // 4. Logique d'envoi Formspree
+if (contactForm) {
+    contactForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        // On définit le bouton précisément ici pour éviter l'erreur "not defined"
+        const boutonEnvoi = document.getElementById('submitBtn');
+        
+        if (boutonEnvoi) {
+            boutonEnvoi.innerText = "ENVOI EN COURS...";
+            boutonEnvoi.disabled = true;
         }
-    
+
+        try {
+            const response = await fetch(e.target.action, {
+                method: 'POST',
+                body: new FormData(e.target),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                // Succès
+                contactForm.classList.add('hidden');
+                if (successMsg) successMsg.classList.remove('hidden');
+                
+                // Reset du formulaire
+                contactForm.reset();
+            } else {
+                throw new Error('Erreur Formspree');
+            }
+        } catch (error) {
+            console.error("Erreur :", error);
+            alert("Une erreur est survenue lors de l'envoi.");
+            
+            if (boutonEnvoi) {
+                boutonEnvoi.innerText = "RÉESSAYER";
+                boutonEnvoi.disabled = false;
+            }
+        }
+    });
+}
         // 5. FONCTION RESET (Pour le bouton "Envoyer une autre demande")
         function resetFormContact() {
             // Réafficher le formulaire et cacher le message de succès
