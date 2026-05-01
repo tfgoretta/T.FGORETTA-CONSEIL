@@ -155,12 +155,39 @@
                 revenus: document.getElementById('hidden-revenus').value
             })
             .then(function() {
-                // 2. Affichage du message de succès
-               // 2. Affichage du message de succès
-        document.getElementById('client-name').innerText = nomClient;
+        // 1. On affiche le succès
+        const clientNameSpan = document.getElementById('client-name');
         const successMsg = document.getElementById('success-message');
-        successMsg.classList.remove('hidden');
+        const form = document.getElementById('simulationForm');
 
+        if(clientNameSpan) clientNameSpan.innerText = nomClient;
+        if(successMsg) successMsg.classList.remove('hidden');
+
+        // 2. Le minuteur de 5 secondes
+        setTimeout(function() {
+            // On cache le message
+            if(successMsg) successMsg.classList.add('hidden');
+
+            // On remet le formulaire à zéro
+            if(form) form.reset();
+
+            // On remet les valeurs par défaut aux curseurs
+            // (Vérifie que tes variables s'appellent bien inRev et inCha)
+            if(typeof inRev !== 'undefined') inRev.value = 3000;
+            if(typeof inCha !== 'undefined') inCha.value = 0;
+
+            // On relance le calcul pour mettre à jour les chiffres dorés
+            if(typeof calculer === 'function') calculer();
+
+            // On réactive le bouton
+            if(typeof btn !== 'undefined') {
+                btn.innerText = "RECEVOIR MON ÉTUDE DÉTAILLÉE";
+                btn.disabled = false;
+            }
+        }, 5000);
+
+    }, function(error) {
+     
         // 3. MINUTEUR : On attend 5 secondes puis on remet tout à zéro
         setTimeout(() => {
             // Cacher le bloc de succès
