@@ -156,8 +156,30 @@
             })
             .then(function() {
                 // 2. Affichage du message de succès
-                document.getElementById('client-name').innerText = nomClient;
-                document.getElementById('success-message').classList.remove('hidden');
+               // 2. Affichage du message de succès
+        document.getElementById('client-name').innerText = nomClient;
+        const successMsg = document.getElementById('success-message');
+        successMsg.classList.remove('hidden');
+
+        // 3. MINUTEUR : On attend 5 secondes puis on remet tout à zéro
+        setTimeout(() => {
+            // Cacher le bloc de succès
+            successMsg.classList.add('hidden');
+
+            // Réinitialiser le formulaire
+            document.getElementById('simulationForm').reset();
+
+            // Remettre les curseurs à leur position de base (ex: 3000€ et 0€)
+            inRev.value = 3000;
+            inCha.value = 0;
+            
+            // Relancer le calcul pour que les chiffres dorés reviennent à la base
+            calculer();
+
+            // Remettre le bouton à son état initial
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }, 5000); // 5000 = 5 secondes
             }, function(error) {
                 alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer ou me contacter par téléphone.");
                 btn.innerText = originalText;
