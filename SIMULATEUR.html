@@ -7,48 +7,50 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        input[type=range] { accent-color: #b89564; }
+        input[type=range] { accent-color: #b89564; cursor: pointer; }
+        /* Pour mobile : empêche le défilement horizontal */
+        html, body { width: 100%; position: relative; }
     </style>
 </head>
 <body class="bg-[#faf8f5] text-[#0a1d2e]">
 
-    <nav class="py-6 px-6 lg:px-24 bg-white border-b border-gray-100 flex justify-between items-center">
+    <nav class="py-4 md:py-6 px-4 md:px-24 bg-white border-b border-gray-100 flex justify-between items-center">
         <a href="index.html" class="flex items-center gap-2 group">
             <span class="text-[#b89564] group-hover:-translate-x-1 transition-transform">←</span>
-            <span class="text-[10px] uppercase tracking-widest font-bold">Retour à l'accueil</span>
+            <span class="text-[9px] md:text-[10px] uppercase tracking-widest font-bold">Retour à l'accueil</span>
         </a>
     </nav>
 
-    <main class="py-16 px-6 lg:px-24 max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-            <h1 class="text-4xl lg:text-5xl font-serif mb-4">Estimez votre <span class="text-[#b89564] italic">capacité d'emprunt</span></h1>
-            <p class="text-gray-500 text-sm max-w-xl mx-auto">Calculez instantanément votre budget immobilier basé sur un taux d'endettement de 35%.</p>
+    <main class="py-10 md:py-16 px-4 md:px-24 max-w-5xl mx-auto">
+        <div class="text-center mb-10 md:mb-16">
+            <h1 class="text-3xl md:text-5xl font-serif mb-4">Estimez votre <span class="text-[#b89564] italic">capacité d'emprunt</span></h1>
+            <p class="text-gray-500 text-xs md:text-sm max-w-xl mx-auto">Calculez instantanément votre budget immobilier basé sur un taux d'endettement de 35%.</p>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             
-            <div class="bg-white p-8 border border-gray-100 shadow-sm space-y-8">
+            <div class="bg-white p-6 md:p-8 border border-gray-100 shadow-sm space-y-8">
                 <div>
-                    <label class="flex justify-between text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
-                        Revenus Nets Mensuels (Foyer) <span><span id="val-revenus">3000</span> €</span>
+                    <label class="flex justify-between text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
+                        Revenus Nets (Foyer) <span><span id="val-revenus">3000</span> €</span>
                     </label>
-                    <input type="range" id="input-revenus" min="1500" max="10000" step="100" value="3000" class="w-full">
+                    <input type="range" id="input-revenus" min="1500" max="10000" step="100" value="3000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none">
                 </div>
 
                 <div>
-                    <label class="flex justify-between text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
-                        Charges mensuelles (crédits en cours) <span><span id="val-charges">0</span> €</span>
+                    <label class="flex justify-between text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
+                        Charges mensuelles <span><span id="val-charges">0</span> €</span>
                     </label>
-                    <input type="range" id="input-charges" min="0" max="3000" step="50" value="0" class="w-full">
+                    <input type="range" id="input-charges" min="0" max="3000" step="50" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none">
                 </div>
 
                 <div>
-                    <label class="flex justify-between text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
+                    <label class="flex justify-between text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-4">
                         Durée du prêt <span><span id="val-duree">25</span> ans</span>
                     </label>
-                    <select id="input-duree" class="w-full border-b border-gray-200 py-2 text-sm outline-none">
+                    <select id="input-duree" class="w-full border-b border-gray-200 py-2 text-sm outline-none bg-white">
                         <option value="15">15 ans (Taux est. 3.4%)</option>
                         <option value="20">20 ans (Taux est. 3.6%)</option>
                         <option value="25" selected>25 ans (Taux est. 3.8%)</option>
@@ -56,35 +58,37 @@
                 </div>
 
                 <div class="pt-6 border-t border-gray-50 text-center">
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-2">Capacité d'emprunt estimée</p>
-                    <p class="text-5xl font-serif text-[#b89564]" id="resultat-montant">0 €</p>
-                    <p class="text-[10px] text-gray-400 mt-4 italic text-balance">Mensualité max conseillée (35%) : <span id="mensualite-max">0</span>€</p>
+                    <p class="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 mb-2">Capacité d'emprunt estimée</p>
+                    <p class="text-4xl md:text-5xl font-serif text-[#b89564]" id="resultat-montant">0 €</p>
+                    <p class="text-[9px] text-gray-400 mt-4 italic">Mensualité max (35%) : <span id="mensualite-max">0</span>€</p>
                 </div>
             </div>
 
-            <div class="bg-[#0a1d2e] p-8 lg:p-10 text-white shadow-xl relative overflow-hidden">
-                <h3 class="text-2xl font-serif mb-6 italic text-[#b89564]">Recevoir mon dossier par mail</h3>
+            <div class="bg-[#0a1d2e] p-6 md:p-10 text-white shadow-xl relative overflow-hidden">
+                <h3 class="text-xl md:text-2xl font-serif mb-6 italic text-[#b89564]">Recevoir mon dossier par mail</h3>
                 
                 <form id="simulationForm" class="space-y-4">
-                    <input type="text" id="nom" placeholder="VOTRE NOM ET PRÉNOM *" required class="w-full bg-white/10 border border-white/20 p-3 text-sm focus:border-[#b89564] outline-none transition-all placeholder:text-white/40">
-                    <input type="email" id="email" placeholder="VOTRE EMAIL *" required class="w-full bg-white/10 border border-white/20 p-3 text-sm focus:border-[#b89564] outline-none transition-all placeholder:text-white/40">
+                    <input type="text" id="nom" placeholder="NOM ET PRÉNOM *" required class="w-full bg-white/10 border border-white/20 p-3 text-sm focus:border-[#b89564] outline-none transition-all placeholder:text-white/40">
+                    <input type="email" id="email" placeholder="EMAIL *" required class="w-full bg-white/10 border border-white/20 p-3 text-sm focus:border-[#b89564] outline-none transition-all placeholder:text-white/40">
                     <input type="tel" id="tel" placeholder="TÉLÉPHONE *" required class="w-full bg-white/10 border border-white/20 p-3 text-sm focus:border-[#b89564] outline-none transition-all placeholder:text-white/40">
                     
                     <input type="hidden" id="hidden-budget" name="budget">
                     <input type="hidden" id="hidden-revenus" name="revenus">
 
-                    <button type="submit" class="w-full bg-[#b89564] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#0a1d2e] transition-all">
+                    <button type="submit" class="w-full bg-[#b89564] text-white py-4 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#0a1d2e] transition-all">
                         RECEVOIR MA SIMULATION PAR EMAIL
                     </button>
-                    <a href="https://calendly.com/francois-goretta01/30min" target="_blank" class="mt-4 text-[9px] uppercase tracking-widest text-gray-400 hover:text-[#b89564] transition-colors underline underline-offset-4">
-    Ou choisir un créneau de 15min dans mon agenda
-</a>
+                    <div class="text-center mt-4">
+                        <a href="https://calendly.com/francois-goretta01/30min" target="_blank" class="text-[9px] uppercase tracking-widest text-gray-400 hover:text-[#b89564] transition-colors underline underline-offset-4">
+                            Prendre RDV dans mon agenda
+                        </a>
+                    </div>
                 </form>
 
                 <div id="success-message" class="hidden absolute inset-0 bg-[#0a1d2e] flex flex-col items-center justify-center text-center p-8 z-20">
-                    <svg class="w-16 h-16 text-[#b89564] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-12 h-12 text-[#b89564] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h4 class="text-xl font-serif mb-2 text-[#b89564]">Simulation envoyée !</h4>
-                    <p class="text-sm text-white/70">Merci <span id="client-name"></span>. Je vous recontacte sous 24h ouvrées pour affiner ce projet ensemble.</p>
+                    <p class="text-xs md:text-sm text-white/70">Merci <span id="client-name"></span>. Je prépare votre étude.</p>
                 </div>
             </div>
         </div>
@@ -94,7 +98,6 @@
 
     <script>
         (function() {
-            // Initialisation avec ta Public Key
             emailjs.init("tY8Bw5yVGdvQRnrVf");
         })();
     
@@ -114,7 +117,6 @@
             const mensualiteMax = (revenus * 0.35) - charges;
             document.getElementById('mensualite-max').innerText = Math.round(mensualiteMax);
     
-            // Simulation du montant (Taux moyens simplifiés)
             const tauxAnnuel = dureeAnnees === 25 ? 0.038 : (dureeAnnees === 20 ? 0.036 : 0.034);
             const tauxMensuel = tauxAnnuel / 12;
             const nbMois = dureeAnnees * 12;
@@ -127,15 +129,14 @@
             const resultatFinal = Math.round(capacite);
             document.getElementById('resultat-montant').innerText = resultatFinal.toLocaleString('fr-FR') + " €";
             
-            // On remplit les champs cachés pour EmailJS
             document.getElementById('hidden-budget').value = resultatFinal.toLocaleString('fr-FR');
             document.getElementById('hidden-revenus').value = revenus;
         }
     
         [revInput, chaInput, durInput].forEach(el => el.addEventListener('input', calculer));
-        calculer(); // Initialisation au chargement
+        calculer(); 
     
-        // Gestion de la soumission du formulaire et envoi EmailJS
+        // CORRECTION ICI : Ajout de la parenthèse manquante
         document.getElementById('simulationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -146,7 +147,6 @@
     
             const nomClient = document.getElementById('nom').value;
     
-            // Appel d'EmailJS avec tes identifiants
             emailjs.send("service_fxk8v14", "template_5hukdu8", {
                 nom: nomClient,
                 email: document.getElementById('email').value,
@@ -154,56 +154,30 @@
                 budget: document.getElementById('hidden-budget').value,
                 revenus: document.getElementById('hidden-revenus').value
             })
-.then(function() {
-        // 1. Récupération des éléments
-        const successMsg = document.getElementById('success-message');
-        const clientNameSpan = document.getElementById('client-name');
-        const formulaire = document.getElementById('simulationForm');
-        const boutonSoumission = formulaire.querySelector('button[type="submit"]');
+            .then(function() {
+                const successMsg = document.getElementById('success-message');
+                const clientNameSpan = document.getElementById('client-name');
+                const formulaire = document.getElementById('simulationForm');
 
-        // 2. Affichage du message de succès (le bloc bleu)
-        if (clientNameSpan) clientNameSpan.innerText = nomClient;
-        if (successMsg) successMsg.classList.remove('hidden');
+                if (clientNameSpan) clientNameSpan.innerText = nomClient;
+                if (successMsg) successMsg.classList.remove('hidden');
 
-        // 3. MINUTEUR DE 5 SECONDES
-        setTimeout(function() {
-            // A. On cache le message bleu
-            if (successMsg) successMsg.classList.add('hidden');
+                setTimeout(function() {
+                    if (successMsg) successMsg.classList.add('hidden');
+                    if (formulaire) formulaire.reset();
+                    revInput.value = 3000;
+                    chaInput.value = 0;
+                    calculer();
+                    btn.innerText = "RECEVOIR MA SIMULATION PAR EMAIL";
+                    btn.disabled = false;
+                }, 5000);
 
-            // B. On vide les champs du formulaire (Nom, Email, Tel)
-            if (formulaire) formulaire.reset();
-
-            // C. On remet les curseurs aux valeurs de base
-            const inputRev = document.getElementById('input-revenus');
-            const inputCha = document.getElementById('input-charges');
-            if (inputRev) inputRev.value = 3000;
-            if (inputCha) inputCha.value = 0;
-
-            // D. On relance le calcul pour remettre les chiffres dorés à jour
-            if (typeof calculer === 'function') {
-                calculer();
-            }
-
-            // E. ON DÉBLOQUE LE BOUTON
-            if (boutonSoumission) {
-                boutonSoumission.innerText = "RECEVOIR MON ÉTUDE DÉTAILLÉE";
-                boutonSoumission.disabled = false;
-            }
-        }, 5000);
-
-    }, function(error) {
-        // En cas d'erreur d'envoi
-        const formulaire = document.getElementById('simulationForm');
-        const boutonSoumission = formulaire.querySelector('button[type="submit"]');
-        
-        alert("Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
-        
-        if (boutonSoumission) {
-            boutonSoumission.innerText = "RÉESSAYER";
-            boutonSoumission.disabled = false;
-        }
-        console.log("Erreur EmailJS :", error);
-    });
+            }, function(error) {
+                alert("Erreur d'envoi. Veuillez réessayer.");
+                btn.innerText = "RÉESSAYER";
+                btn.disabled = false;
+            });
+        }); // <-- Cette parenthèse était manquante !
     </script>
 </body>
 </html>
